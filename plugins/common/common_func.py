@@ -14,7 +14,7 @@ def regist2(name, sex, *a, **k):
     # phone = k['phone'] or None
     email = k.get('email') or None # get 함수를 사용하면 키 값이 없는 경우 에러 안 나고 그냥 None 값을 반환함 더 안전한 방법
     phone = k.get('phone') or None
-    if email:
-        print(f'email : {email}')
-    if phone:
-        print(f'phone : {phone}')
+    # if email:
+    print(f'email : {email}')
+    # if phone:
+    print(f'phone : {phone}')
