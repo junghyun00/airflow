@@ -28,7 +28,7 @@ with DAG(
         task_id = 'bash_task_2',
         env = {'a' : '{{data_interval_end.in_timezone("Asia/Seoul").subtract(months=1) | ds}}',
                'b' : '{{data_interval_end.in_timezone("Asia/Seoul").subtract(months=1).end_of("month") | ds}}',
-               'c' : '{{macros.ds_add(data_interval_end.in_timezone("Asia/Seoul") | ds, -1)}}'
+               'c' : '{{macros.ds_add(data_interval_end.in_timezone("Asia/Seoul") | ds, -1)}}',
                'd' : '{{data_interval_end.in_timezone("Asia/Seoul").start_of("month") | ds}}',
                'e' : '{{data_interval_end.in_timezone("Asia/Seoul").subtract(months=1).start_of("month") | ds}}',
                'f' : '{{data_interval_end.in_timezone("Asia/Seoul").subtract(months=6).start_of("month") | ds}}'
