@@ -10,6 +10,9 @@ with DAG(
     catchup=False
 ) as dag:
     
+    '''
+    1 방법. 날짜 변수를 직접 명시 해서 날짜 구하는 방법
+    '''
     def python_func1(start_date, end_date, **k):
         print(start_date)
         print(end_date)
@@ -20,6 +23,11 @@ with DAG(
         op_kwargs={'start_date': '{{data_interval_start | ds}}', 'end_date': '{{data_interval_end | ds}}'}
     )
 
+
+
+    '''
+    2 방법. **kwargs를 구해서 여러 날짜변수들 중에서 내가 원하는 키 값만 골라와서 쓰기
+    '''
     @task(task_id = 'python_t2')
     def python_func2(**ka):
         print(ka)
