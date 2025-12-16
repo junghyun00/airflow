@@ -11,7 +11,7 @@ with DAG(
 ) as dag:
     # start_date : 2주전 월요일 , end_date : 2주전 토요일
     bash_task_2 = BashOperator(
-        task_id = 'bash_task_2'
+        task_id = 'bash_task_2',
         env = {'start_date' : '{{(data_interval_end.in_timezone("Asia/Seoul") - macros.dateutil.relativedelta.relativedelta(days=19)) | ds}}',
                'end_date' : '{{(data_interval_end.in_timezone("Asia/Seoul") - macros.dateutil.relativedelta.relativedelta(days=14)) | ds}}'
         },
