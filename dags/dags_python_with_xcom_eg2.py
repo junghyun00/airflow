@@ -27,6 +27,6 @@ with DAG(
         print('함수 입력값으로 받은 값 : ' + status)
 
 
-python_xcom_push_by_return = xcom_push_result()
-xcom_pull_2(python_xcom_push_by_return)
-python_xcom_push_by_return >> xcom_pull_1()
+    python_xcom_push_by_return = xcom_push_result()
+    xcom_pull_2(python_xcom_push_by_return)
+    python_xcom_push_by_return >> xcom_pull_1()
