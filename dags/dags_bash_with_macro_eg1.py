@@ -31,9 +31,10 @@ with DAG(
                'c' : '{{macros.ds_add(data_interval_end.in_timezone("Asia/Seoul") | ds, -1)}}',
                'd' : '{{data_interval_end.in_timezone("Asia/Seoul").start_of("month") | ds}}',
                'e' : '{{data_interval_end.in_timezone("Asia/Seoul").subtract(months=1).start_of("month") | ds}}',
-               'f' : '{{data_interval_end.in_timezone("Asia/Seoul").subtract(months=6).start_of("month") | ds}}'
+               'f' : '{{data_interval_end.in_timezone("Asia/Seoul").subtract(months=6).start_of("month") | ds}}',
+               'g' : '{{data_interval_end.in_timezone("Asia/Seoul").replace(day=10) | ds}}'  
         },
-        bash_command = 'echo "1달 전 : $a" && echo "전월 마지막 일 : $b" && echo "하루 전 : $c" && echo "이번 달 1일: $d" && echo "전월 1일 : $e" && echo "6개월 전 1일 : $f"'
+        bash_command = 'echo "1달 전 : $a" && echo "전월 마지막 일 : $b" && echo "하루 전 : $c" && echo "이번 달 1일: $d" && echo "전월 1일 : $e" && echo "6개월 전 1일 : $f" && echo "매달 10일 : $g"'
     )
 
 
