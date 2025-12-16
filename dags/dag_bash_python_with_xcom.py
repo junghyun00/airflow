@@ -4,7 +4,7 @@ import pendulum
 from airflow.providers.standard.operators.bash import BashOperator
 
 with DAG(
-    dag_id="dag_bash_python_with_xcom",
+    dag_id="dag_bash_python_with_xcom", 
     schedule="10 0 * * *",  # 분 시 일 월 요일
     start_date=pendulum.datetime(2025, 12, 1, tz="Asia/Seoul"), 
     catchup=False
