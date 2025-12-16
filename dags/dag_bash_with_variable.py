@@ -12,8 +12,9 @@ with DAG(
 ) as dag:
     '''
     1. BashOperator 밖에서 Variable라는 라이브러리를 import하고 전역변수를 불러온 뒤 저장 (이런 코드는 권고하지 않음)
+       이유 : 메타 디비에 Variable라는 테이블에 있는 전역변수 값을 가져오는건데 파싱하면서 이 디비에 접속해 값을 찾을려고 함 그래서 스케쥴러 부하 발생
     '''
-    var_value = Variable.get('smaple_key')
+    var_value = Variable.get('sample_key')
 
     bash_var_1 = BashOperator(
         task_id = 'bash_var_1',
@@ -22,7 +23,7 @@ with DAG(
 
 
     '''
-    2. template 변수를 사용해서 전역변수를 직접 명시 함
+    2. template 변수를 사용해서 전역변수를 직접 명시 함 (이런 방식을 권장함)
     '''
     bash_var_2 = BashOperator(
         task_id = 'bash_var_2',
