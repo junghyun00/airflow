@@ -10,6 +10,12 @@ with DAG(
     catchup=False
 ) as dag:
     
+    '''
+    1 방법. @task 에서 templates_dict를 사용해서 날짜 계산하는 법
+    계산 시점 : task 실행전에
+    계산 위치 : jinja 템플릿 엔진
+    계산 대상 : airflow context 변수
+    '''
     @task(task_id = 'task_using_macros',
           templates_dict = { 'start_date': '{{data_interval_end.in_timezone("Asia/Seoul").subtract(months=1).replace(day=1) | ds}}'  # 전월 1일
                            , 'end_date'  : '{{data_interval_end.in_timezone("Asia/Seoul").subtract(months=1).end_of("month") | ds}}' # 전월 말일
@@ -23,6 +29,13 @@ with DAG(
             print(f'start_date : {start_date}')
             print(f'end_date : {end_date}')
 
+
+    '''
+    2 방법. 함수 안에서 relativedelta를 직접 import 하고 변수에 저장하면서 날짜 계산하는 법
+    계산 시점 : task 실행 중
+    계산 위치 : python 런타임
+    계산 대상 : python 객체
+    '''
     @task(task_id = 'task_direct_calc')
     def get_datetime_calc(**kwargs):
         '''
@@ -33,8 +46,10 @@ with DAG(
 
         data_interval_end = kwargs.get('data_interval_end')
 
-        prev_month_day_first = data_interval_end.in_timezone("Asia/Seoul") + relativedelta(months = -1, day = 1)
-        prev_month_day_last  = data_interval_end.in_timezone("Asia/Seoul").replace(day = 1) + relativedelta(days = -1)
+        # prev_month_day_first = data_interval_end.in_timezone("Asia/Seoul") + relativedelta(months = -1, day = 1)
+        # prev_month_day_last  = data_interval_end.in_timezone("Asia/Seoul").replace(day = 1) + relativedelta(days = -1)
+        prev_month_day_first = data_interval_end.in_timezone("Asia/Seoul").subtract(months=1).replace(day=1)
+        prev_month_day_last = data_interval_end.in_timezone("Asia/Seoul").subtract(months=1).end_of("month")
         print(f"prev_month_day_first : {prev_month_day_first.strftime('%Y-%m-%d')}")
         print(f"prev_month_day_last : {prev_month_day_last.strftime('%Y-%m-%d')}")
 
