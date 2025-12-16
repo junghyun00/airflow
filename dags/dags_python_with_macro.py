@@ -46,10 +46,14 @@ with DAG(
 
         data_interval_end = kwargs.get('data_interval_end')
 
+        # 선생님 코드
         # prev_month_day_first = data_interval_end.in_timezone("Asia/Seoul") + relativedelta(months = -1, day = 1)
         # prev_month_day_last  = data_interval_end.in_timezone("Asia/Seoul").replace(day = 1) + relativedelta(days = -1)
+
+        # 내 코드
         prev_month_day_first = data_interval_end.in_timezone("Asia/Seoul").subtract(months=1).replace(day=1)
         prev_month_day_last = data_interval_end.in_timezone("Asia/Seoul").subtract(months=1).end_of("month")
+        
         print(f"prev_month_day_first : {prev_month_day_first.strftime('%Y-%m-%d')}")
         print(f"prev_month_day_last : {prev_month_day_last.strftime('%Y-%m-%d')}")
 
