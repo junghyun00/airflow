@@ -24,7 +24,7 @@ with DAG(
               , 'data'   : '{{ti.xcom_pull(task_ids = "python_push")["data"]}}'
               , 'options_cnt'   : '{{ti.xcom_pull(task_ids = "python_push")["options_cnt"]}}'
               },
-        bash_command = 'echo $status && echo $data && echo $option_cnt'
+        bash_command = 'echo $status && echo $data && echo $options_cnt'
     )
 
     python_push_xcom() >> bash_pull
@@ -47,5 +47,5 @@ with DAG(
         return_value = ti.xcom_pull(task_ids = 'bash_push')
         print('status_value : ' + str(status_value))
         print('return_value : ' + return_value)
-
+1
     bash_push >> python_pull_xcom()
