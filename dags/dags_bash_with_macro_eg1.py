@@ -24,8 +24,8 @@ with DAG(
 
 
     # 연습
-    bash_task_1 = BashOperator(
-        task_id = 'bash_task_1',
+    bash_task_2 = BashOperator(
+        task_id = 'bash_task_2',
         env = {'a' : '{{data_interval_end.in_timezone("Asia/Seoul").subtract(months=1) | ds}}',
                'b' : '{{data_interval_end.in_timezone("Asia/Seoul").subtract(months=1).end_of("month") | ds}}',
                'c' : '{{macros.ds_add(data_interval_end.in_timezone("Asia/Seoul") | ds, -1)}}'
@@ -35,3 +35,6 @@ with DAG(
         },
         bash_command = 'echo "1달 전 : $a" && echo "전월 마지막 일 : $b" && echo "하루 전 : $c" && echo "이번 달 1일: $d" && echo "전월 1일 : $e" && echo "6개월 전 1일 : $f"'
     )
+
+
+    bash_task_1 >> bash_task_2
