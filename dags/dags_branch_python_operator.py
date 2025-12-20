@@ -10,6 +10,10 @@ with DAG(
     start_date=pendulum.datetime(2025, 12, 1, tz="Asia/Seoul"), 
     catchup=False
 ) as dag:
+    '''
+    A가 선택되면 task_a 돌고
+    B,C가 선택되면 task_b, task_c 돌고
+    '''
     def select_random():
         import random
 
@@ -27,7 +31,9 @@ with DAG(
 
 
 
-
+    '''
+    여기서 어느 task들이 돌았는지 print로 찍어줌
+    '''
     def common_fucn(**kwagrs):
         print(kwagrs.get('selected'))
 
