@@ -21,7 +21,7 @@ with DAG(
         task_id = 'trigger_dag_task',
         trigger_dag_id = 'dags_python_operator',       # 실행시키고 싶은 dag
         trigger_run_id = None,                         # run_id를 지정, 지금은 지정 안 함
-        execution_date = '{{data_interval_start}}',    # 실행 시간 지정
+        conf={"triggered_at": "{{ data_interval_start }}"},    # 실행 시간 지정
         reset_dag_run = True,                          # trigger_run_id을 지정했을때 이미 해당 run_id가 있더라도 리셋하고 실행시킬 것인가
         wait_for_completion = False,                   # trigger 된 dag이 성공이 되던말던 해당 task는 성공으로 찍힘 그리고 다음 task가 있다면 넘어감 # True여야지 선후관계가 생겨서 뒤에 task가 실행이 안됨
         poke_interval = 60,                            # 트리거 된 dag이 실행이 끝났는지 안 끝났는지 모니터링 주기, 지금은 60초마다 확인 함
