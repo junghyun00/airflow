@@ -1,9 +1,9 @@
-from airflow.sdk import DAG, task, task_group
+from airflow.sdk import DAG, task, task_group, TaskGroup
 import datetime
 import pendulum
 from airflow.providers.standard.operators.bash import BashOperator
 from airflow.providers.standard.operators.python import PythonOperator
-from airflow.utils import TaskGroup
+
 
 
 
