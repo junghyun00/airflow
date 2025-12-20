@@ -1,11 +1,11 @@
 from airflow.sdk import DAG, task
 import datetime
 import pendulum
-from airflow.providers.standard.operators.python import BranchPythonOperator
+# from airflow.providers.standard.operators.python import BranchPythonOperator
 from airflow.providers.standard.operators.python import PythonOperator
 
 with DAG(
-    dag_id="dags_branch_python_operator",
+    dag_id="dags_python_with_branch_decorator",
     schedule="10 0 * * *",  # 분 시 일 월 요일
     start_date=pendulum.datetime(2025, 12, 1, tz="Asia/Seoul"), 
     catchup=False
@@ -13,11 +13,8 @@ with DAG(
     '''
     A가 선택되면 task_a 돌고
     B,C가 선택되면 task_b, task_c 돌고
-
-    함수 내에서 if문으로 제어를 해도 BranchPythonOperator가 아니라 PythonOperator를 쓰면 그냥 task들이 다 실행됨
-    if문은 파이썬 함수 내부 로직일 뿐 Airflow는 "DAG 구조"를 그대로 실행하는 것
-    그니까 함수 내에서 분기처리를 했으면 airflow한테도 BranchPythonOperator를 무조건 같이 써줘서 해당 dag구조는 분기처리용이라는걸 알려줘야함
     '''
+    @task.branch(task_id = 'python_branch_task')    # dags_branch_python_operator와 다르게 branch 데코레이터를 활용해서 task를 선언함
     def select_random():
         import random
 
@@ -27,12 +24,6 @@ with DAG(
             return 'task_a'
         elif selected_item in ['B', 'C'] :
             return ['task_b', 'task_c']
-        
-    python_branch_task = BranchPythonOperator(
-        task_id = 'python_branch_task',
-        python_callable = select_random
-    )
-    
 
 
 
@@ -62,4 +53,4 @@ with DAG(
 
 
 
-    python_branch_task >> [task_a, task_b, task_c]
+    select_random() >> [task_a, task_b, task_c]
