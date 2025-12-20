@@ -22,7 +22,7 @@ with DAG(
     '''
     @task_group(group_id = 'first_group')
     def group_1():
-        ''' task_group 데커레이터를 이용한 첫번째 그룹입니다. '''
+        ''' task_group 데커레이터를 이용한 첫번째 그룹입니다. '''  #docstring : 이렇게 그룹 내에 주석처리 해두면 그룹에 대한 설명이 airflow에 저장돼서 ui에 보여짐
 
         @task(task_id = 'inner_func1')
         def inner_func1(**kwagrs):
@@ -38,7 +38,7 @@ with DAG(
     '''
     2. 클래스를 이용해서 그룹 생성
     '''
-    with TaskGroup(group_id = 'second_group', tooltip = '두번째 그룹입니다.') as group_2:
+    with TaskGroup(group_id = 'second_group', tooltip = '두번째 그룹입니다.') as group_2:   # tooltip = docstring
 
         @task(task_id = 'inner_func1')
         def inner_func1(**kwagrs):
