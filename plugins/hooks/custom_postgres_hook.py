@@ -20,7 +20,7 @@ class CustomPostgresHook(BaseHook):
         # airflow_conn과 self.postgres_conn는 전혀 다른거임 (앞에거는 커넥션 정보가 담긴 객체, 뒤에건 세션이 담긴 객체)
     
 
-    def bulk_load(self, table_name, delimiter: str, is_header: bool, is_replace: bool):
+    def bulk_load(self, table_name, file_name, delimiter: str, is_header: bool, is_replace: bool):
         from sqlalchemy import create_engine
 
         self.log.info('적재 대상 파일:' + file_name)
