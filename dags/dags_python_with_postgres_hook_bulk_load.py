@@ -22,7 +22,7 @@ with DAG(
         task_id = 'insrt_postgres_with_hook_bulk_load',
         python_callable=insert_postgres,
         op_kwargs={ 'postgres_conn_id':'conn-db-postgrs-custom'
-                  ,  'tbl_nm':'tb_bulk1'
+                  ,  'tbl_nm':'tb_bulk1'   # 테이블이 디비에 있어야지 에러 안 남
                   , 'file_nm' : {'/opt/airflow/files/TbCorona19CountStatus/{{data_interval_end.in_timezone("Asia/Seoul") | ds_nodash}}/TbCorona19CountStatus.csv'}
                   }
     )
