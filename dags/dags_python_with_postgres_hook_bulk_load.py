@@ -24,5 +24,15 @@ with DAG(
         op_kwargs={ 'postgres_conn_id':'conn-db-postgrs-custom'
                   ,  'tbl_nm':'tb_bulk1'   # 테이블이 디비에 있어야지 에러 안 남
                   , 'file_nm' : {'/opt/airflow/files/TbCorona19CountStatus/{{data_interval_end.in_timezone("Asia/Seoul") | ds_nodash}}/TbCorona19CountStatus.csv'}
+                  # 그리고 데이터는 구분자가 tab으로 구분되어야지 에러 안 남, 그리고 컬럼 헤더 값도 없어야 함
                   }
     )
+
+    '''
+    bulk_load의 문제점
+    1. load 가능한 구분자는 tab으로 고정되어 있음
+    2. 헤더까지 포함해서 업로드 됨
+    3. 특수문자로 인해 파싱이 안 될 경우 에러 발생
+
+    >> 이런 문제점들 때문에 custom hook을 만들 수 있음
+    '''
