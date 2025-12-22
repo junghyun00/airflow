@@ -20,7 +20,7 @@ with DAG(
         python_callable=insrt_postgre,
         op_kwargs={ 'postgre_conn_id': 'conn-db-postgrs-custom'
                   , 'tbl_nm' : 'tb_bulk2'
-                  , 'file_nm' : {'/opt/airflow/files/TbCorona19CountStatus/{{data_interval_end.in_timezone("Asia/Seoul") | ds_nodash}}/TbCorona19CountStatus.csv'}
+                  , 'file_nm' : {'/opt/airflow/files/tb_bicycle_master/{{data_interval_end.in_timezone("Asia/Seoul") | ds_nodash}}/tb_bicycle_master.csv'}
                   }
 
     )

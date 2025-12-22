@@ -23,7 +23,7 @@ with DAG(
         python_callable=insert_postgres,
         op_kwargs={ 'postgres_conn_id':'conn-db-postgrs-custom'
                   ,  'tbl_nm':'tb_bulk1'   # 테이블이 디비에 있어야지 에러 안 남
-                  , 'file_nm' : {'/opt/airflow/files/TbCorona19CountStatus/{{data_interval_end.in_timezone("Asia/Seoul") | ds_nodash}}/TbCorona19CountStatus.csv'}
+                  , 'file_nm' : {'/opt/airflow/files/tb_bicycle_master/{{data_interval_end.in_timezone("Asia/Seoul") | ds_nodash}}/tb_bicycle_master.csv'}
                   # 그리고 데이터는 구분자가 tab으로 구분되어야지 에러 안 남, 그리고 컬럼 헤더 값도 없어야 함
                   }
     )

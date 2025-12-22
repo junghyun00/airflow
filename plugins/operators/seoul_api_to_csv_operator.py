@@ -1,7 +1,7 @@
 from airflow.hooks.base import BaseHook
 import pandas as pd
 # Airflow 3.0 부터 아래 경로로 import 합니다.
-from airflow.providers.standard.operators.bash import BashOperator
+from airflow.models import BaseOperator
 
 # Airflow 2.10.5 이하 버전에서 실습시 아래 경로에서 import 하세요.
 #from airflow.models.baseoperator import BaseOperator
