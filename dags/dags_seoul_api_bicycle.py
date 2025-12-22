@@ -15,9 +15,9 @@ with DAG(
     '''서울시 따릉이대여소 마스터 정보'''
     tb_bicycle_master = SeoulApiToCsvOperator(
         task_id='tb_bicycle_master',
-        dataset_nm='tb_bicycle_master',
-        path='/opt/airflow/files/tb_bicycle_master/{{data_interval_end.in_timezone("Asia/Seoul") | ds_nodash }}',
-        file_name='tb_bicycle_master.csv'
+        dataset_nm='bikeStationMaster',
+        path='/opt/airflow/files/bikeStationMaster/{{data_interval_end.in_timezone("Asia/Seoul") | ds_nodash }}',
+        file_name='bikeStationMaster.csv'
     )
 
 
