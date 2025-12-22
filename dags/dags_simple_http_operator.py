@@ -34,9 +34,9 @@ with DAG(
         import json
         from pprint import pprint
 
-        # pprint(json.loads(rslt))
-        print(rslt)
-        print(type(rslt))
+        pprint(json.loads(rslt))
+        # print(rslt)
+        # print(type(rslt))
 
 
     tb_cycle_station_info >> python_2()
