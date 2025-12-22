@@ -23,7 +23,7 @@ class SeoulApiToCsvOperator(BaseOperator):
         connection = BaseHook.get_connection(self.http_conn_id)
         self.base_url = f'http://{connection.host}:{connection.port}/{self.endpoint}'
 
-        print(self.base_url)
+        #print(self.base_url)
 
         total_row_df = pd.DataFrame()
         start_row = 1
@@ -34,7 +34,7 @@ class SeoulApiToCsvOperator(BaseOperator):
             row_df = self._call_api(self.base_url, start_row, end_row)
             total_row_df = pd.concat([total_row_df, row_df])
             
-            print(total_row_df)
+            #print(total_row_df)
 
             if len(row_df) < 1000:
                 break
@@ -65,6 +65,6 @@ class SeoulApiToCsvOperator(BaseOperator):
         row_data = contents.get(key_nm).get('row')
         row_df = pd.DataFrame(row_data)
 
-        print(request_url)
+        #print(request_url)
 
         return row_df

@@ -15,7 +15,7 @@ with DAG(
     '''서울시 따릉이대여소 마스터 정보'''
     tb_bicycle_master = SeoulApiToCsvOperator(
         task_id='tb_bicycle_master',
-        dataset_nm='bikeStationMaster',
+        dataset_nm='bikeStationMaster',   # 이 데이터셋 이름은 꼭 api에 있는걸로 해야함 오퍼레이터를 그렇게 만들었음
         path='/opt/airflow/files/bikeStationMaster/{{data_interval_end.in_timezone("Asia/Seoul") | ds_nodash }}',
         file_name='bikeStationMaster.csv'
     )
