@@ -13,7 +13,7 @@ with DAG(
 ) as dag:
     def insrt_postgre(postgre_conn_id, tbl_nm, file_nm, **kwagrs):
         custom_postgre_hook = CustomPostgresHook(postgres_conn_id=postgre_conn_id)
-        custom_postgre_hook.bulk_load(table_name=tbl_nm, file_name=file_nm, delimiter='', is_header=True, is_replace=True)  # 해당 테이블이 있으면 엎어쳐서 새로 올린다
+        custom_postgre_hook.bulk_load(table_name=tbl_nm, file_name=file_nm, delimiter=',', is_header=True, is_replace=True)  # 해당 테이블이 있으면 엎어쳐서 새로 올린다
 
     insrt_postgre = PythonOperator(
         task_id = 'insrt_postgre',
