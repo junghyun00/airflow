@@ -17,7 +17,7 @@ with DAG(
     tb_cycle_station_info = HttpOperator(
        task_id =  'tb_cycle_station_info',
        http_conn_id = 'openapi.seoul.go.kr',
-       endpoint = '{{var.value.apikey_openapi_seoul_go_kr}}/json/tbCycleStationInfo/1/10/',
+       endpoint = '{{var.value.apikey_openapi_seoul_go_kr}}/json/tbCycleStationInfo/1/10/',   # 인증키는 보안 문제 때문에 airflow 전역변수에 담아서 사용하는걸 권장
        method='GET',
        headers={ 'content-Type':'application/json'
                , 'charset' : 'utf-8'
