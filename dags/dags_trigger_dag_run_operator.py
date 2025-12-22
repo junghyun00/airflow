@@ -19,7 +19,7 @@ with DAG(
 
     trigger_dag_task = TriggerDagRunOperator(
         task_id = 'trigger_dag_task',
-        trigger_dag_id = 'dags_python_operator',       # 실행시키고 싶은 dag
+        trigger_dag_id = 'dags_python_operator',       # 실행시키고 싶은 dag 
         trigger_run_id = None,                         # run_id를 지정, 지금은 지정 안 함
         conf={"triggered_at": "{{ data_interval_start }}"},    # 실행 시간 지정
         reset_dag_run = True,                          # trigger_run_id을 지정했을때 이미 해당 run_id가 있더라도 리셋하고 실행시킬 것인가
