@@ -23,6 +23,8 @@ class SeoulApiToCsvOperator(BaseOperator):
         connection = BaseHook.get_connection(self.http_conn_id)
         self.base_url = f'http://{connection.host}:{connection.port}/{self.endpoint}'
 
+        print(self.base_url)
+
         total_row_df = pd.DataFrame()
         start_row = 1
         end_row = 1000
