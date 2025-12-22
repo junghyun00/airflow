@@ -22,7 +22,8 @@ with DAG(
        headers={ 'content-Type':'application/json'
                , 'charset' : 'utf-8'
                , 'Accept' : '*/*'
-               }
+               },
+       log_response=True
     )
     # 해당 값이 xcom에 저장됨
 
@@ -33,7 +34,9 @@ with DAG(
         import json
         from pprint import pprint
 
-        pprint(json.loads(rslt))
+        # pprint(json.loads(rslt))
+        print(rslt)
+        print(type(rslt))
 
 
     tb_cycle_station_info >> python_2()
