@@ -5,7 +5,7 @@ from airflow.providers.standard.operators.bash import BashOperator
 from airflow.models import Variable
 
 with DAG(
-    dag_id="dag_bash_with_variable",
+    dag_id="dags_bash_with_variable",
     schedule="10 0 * * *",  # 분 시 일 월 요일
     start_date=pendulum.datetime(2025, 12, 1, tz="Asia/Seoul"), 
     catchup=False
