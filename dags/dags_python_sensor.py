@@ -18,6 +18,12 @@ with DAG(
     catchup=False
 ) as dag:
     '''
+    dag 설명
+    서울시 공공데이터 : 서울시 코로나19 확진자(전수감시) 발생동향 (2023.08.31.이전)
+    데이터셋에 오늘자 데이터가 생겼는지 안 생겼는지 확인하는 sensor dag
+    '''
+
+    '''
     sensor 모드 2가지
     1. poke : 초단위 sensor
     2. reschedule : 분단위 sensor
@@ -47,7 +53,7 @@ with DAG(
             from airflow.exceptions import AirflowException
             AirflowException(f'{base_dt_col} 컬럼은 YYYY.MM.DD 또는 YYYY/MM/DD 형태가 아닙니다.')
 
-        today_ymd = '2025-05-31' #kwargs.get('data_interval_end').in_timezone('Asia/Seoul').strftime('%Y-%m-%d')
+        today_ymd = '2023-05-31' #kwargs.get('data_interval_end').in_timezone('Asia/Seoul').strftime('%Y-%m-%d')
         if last_date >= today_ymd:   # 데이터 존재
             print(f'생성 확인(배치 날짜: {today_ymd} / API Last 날짜: {last_date})')
             return True
