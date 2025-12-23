@@ -17,7 +17,8 @@ with DAG(
         task_id='tb_seoul_people',
         dataset_nm='SPOP_LOCAL_RESD_DONG',   # 이 데이터셋 이름은 꼭 api에 있는걸로 해야함 오퍼레이터를 그렇게 만들었음
         path='/opt/airflow/files/SPOP_LOCAL_RESD_DONG/{{data_interval_end.in_timezone("Asia/Seoul") | ds_nodash }}',
-        file_name='SPOP_LOCAL_RESD_DONG.csv'
+        file_name='SPOP_LOCAL_RESD_DONG.csv',
+        base_dt = '20251218'
     )
 
 
