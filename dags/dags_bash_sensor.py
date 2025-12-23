@@ -54,7 +54,7 @@ with DAG(
     bash_task = BashOperator(
         task_id = 'bash_task',
         env={'file' : '/opt/airflow/files/bikeStationMaster/{{data_interval_end.in_timezone("Asia/Seoul") | ds_nodash}}/bikeStationMaster.csv'},
-        bash_command='echo "건수: `cat $file | wc -1`"'
+        bash_command='echo "건수: `cat $file | wc -l`"'
     )
 
     [sensor_task_by_poke, sensor_task_by_reschedule] >> bash_task
