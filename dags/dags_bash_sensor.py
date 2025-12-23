@@ -11,6 +11,10 @@ with DAG(
     start_date=pendulum.datetime(2025, 1, 1, tz="Asia/Seoul"),
     catchup=False
 ) as dag:
+    
+    ### sensor 모드 2가지
+
+
     '''
     1. poke : 초단위로 sensor를 하고 싶을 때 사용(pool을 계속 잡고 있음)
     '''
@@ -26,7 +30,7 @@ with DAG(
         poke_interval = 30,
         timeout = 60*2,
         mode= 'poke',
-        soft_fail=False
+        soft_fail=False   # timeout 되면 soft_fail=False여서 fail로 남음
     )
     
     '''
@@ -42,9 +46,9 @@ with DAG(
                             exit 1
                          fi''',
         poke_interval = 60*3,  # 3분
-        timeout = 60*9,  # 9분
+        timeout = 60*5,  # 5분
         mode= 'reschedule',
-        soft_fail=True
+        soft_fail=True   # timeout 되면 soft_fail=True여서 sikpped로 남음
     )
 
     bash_task = BashOperator(
