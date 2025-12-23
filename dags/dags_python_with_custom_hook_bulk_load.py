@@ -34,3 +34,6 @@ with DAG(
                   }
 
     )
+
+
+    insrt_postgre_bike >> insrt_postgre_people
