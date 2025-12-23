@@ -26,7 +26,7 @@ class SeoulApiToCsvOperator(BaseOperator):
         self.base_url = f'http://{connection.host}:{connection.port}/{self.endpoint}'
 
         current_dt = self.base_dt
-        end_dt = '20251215'
+        end_dt = '20251101'
 
         total_row_df = pd.DataFrame()
 
