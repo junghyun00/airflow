@@ -6,7 +6,7 @@ from airflow.utils.state import State
 
 with DAG(
     dag_id="dags_external_task_sensor", 
-    schedule="0 7 * * *",  # 분 시 일 월 요일
+    schedule='0 22 * * *',
     start_date=pendulum.datetime(2025, 1, 1, tz="Asia/Seoul"),
     catchup=False
 ) as dag:
@@ -24,7 +24,7 @@ with DAG(
         external_dag_id = 'dags_branch_python_operator',
         external_task_id = 'task_a',
         allowed_states = [State.SKIPPED],    # allowed_states : 모니터링 하는 task_a가 skipped 상태가 되면 해당 task는 success가 됨
-        execution_delta = timedelta(hours=6),
+        execution_delta = timedelta(hours=2),
         poke_interval=10   #10초
     )
 
@@ -33,7 +33,7 @@ with DAG(
         external_dag_id = 'dags_branch_python_operator',
         external_task_id = 'task_b',
         failed_states = [State.SKIPPED],   # failed_states : 모니터링 하는 task_b가 skipped 상태가 되면 해당 task는 fail됨
-        execution_delta = timedelta(hours=6),
+        execution_delta = timedelta(hours=2),
         poke_interval=10   #10초
     )
 
@@ -42,6 +42,6 @@ with DAG(
         external_dag_id = 'dags_branch_python_operator',
         external_task_id = 'task_c',
         allowed_states = [State.SUCCESS],  # allowed_states : 모니터링 하는 task_c가 SUCCESS 상태가 되면 해당 task는 success가 됨
-        execution_delta = timedelta(hours=6),
+        execution_delta = timedelta(hours=2),
         poke_interval=10   #10초
     )
