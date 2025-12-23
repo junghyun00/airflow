@@ -38,7 +38,7 @@ class SeoulApiToCsvOperator(BaseOperator):
             while True:
                 self.log.info(f'시작:{start_row}')
                 self.log.info(f'끝:{end_row}')
-                row_df = self._call_api(self.base_url, start_row, end_row, base_dt = current_dt)
+                row_df = self._call_api(self.base_url, start_row, end_row, current_dt)
                 total_row_df = pd.concat([total_row_df, row_df])
                 
                 #print(total_row_df)
@@ -49,7 +49,9 @@ class SeoulApiToCsvOperator(BaseOperator):
                     start_row = end_row + 1
                     end_row += 1000
 
-            current_dt -= timedelta(days=1) 
+            current_dt = datetime.strptime(current_dt, '%Y%m%d')   # current_dt 문자열 > datetime
+            current_dt -= timedelta(days=1)                        # 날짜 하루 빼기
+            current_dt = current_dt.strftime('%Y%m%d')             # datetime > 문자열
 
         if not os.path.exists(self.path):
             os.system(f'mkdir -p {self.path}')
