@@ -14,7 +14,7 @@ from airflow.providers.standard.sensors.python import PythonSensor
 with DAG(
     dag_id='dags_python_sensor',
     start_date=pendulum.datetime(2023,4,1, tz='Asia/Seoul'),
-    schedule='*/2 * * * *',
+    schedule='10 1 * * *',
     catchup=False
 ) as dag:
     '''
