@@ -17,6 +17,16 @@ with DAG(
     schedule='10 1 * * *',
     catchup=False
 ) as dag:
+    '''
+    sensor 모드 2가지
+    1. poke : 초단위 sensor
+    2. reschedule : 분단위 sensor
+
+    python sensor는 무조건 return 값이 True/False 가 있어야 함 
+    -True면 sensor 성공
+    -False면 계속 돌다가 timeout 시간 만나면 soft_fail 값에 따라 fail or skipped로 끝남 (soft_fail 디폴트 값은 fail)
+    '''
+
     def check_api_update(http_conn_id, endpoint, base_dt_col, **kwargs):
         import requests
         import json
@@ -37,7 +47,7 @@ with DAG(
             from airflow.exceptions import AirflowException
             AirflowException(f'{base_dt_col} 컬럼은 YYYY.MM.DD 또는 YYYY/MM/DD 형태가 아닙니다.')
 
-        today_ymd = kwargs.get('data_interval_end').in_timezone('Asia/Seoul').strftime('%Y-%m-%d')
+        today_ymd = '2025-05-31' #kwargs.get('data_interval_end').in_timezone('Asia/Seoul').strftime('%Y-%m-%d')
         if last_date >= today_ymd:   # 데이터 존재
             print(f'생성 확인(배치 날짜: {today_ymd} / API Last 날짜: {last_date})')
             return True
@@ -52,6 +62,6 @@ with DAG(
                    'endpoint':'{{var.value.apikey_openapi_seoul_go_kr}}/json/TbCorona19CountStatus',   # 서울시 코로나19 확진자(전수감시) 발생동향 (2023.08.31.이전)
                    'base_dt_col':'S_DT'},
         poke_interval=60,   #1분
-        timeout = 60*5,
+        timeout = 60*3,
         mode='reschedule'
     )
