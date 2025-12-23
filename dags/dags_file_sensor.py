@@ -14,8 +14,7 @@ with DAG(
     bikeStationMaster_sensor = FileSensor(
         task_id = 'bikeStationMaster_sensor',
         fs_conn_id = 'conn_file_opt_airflow_files',
-        filepath = 'bikeStationMaster/{{data_interval_end.in_timezone("Asia/Seoul") | ds_nodash}}/bikeStationMaster.csv'
-        env={'file' : '/opt/airflow/files/bikeStationMaster/{{data_interval_end.in_timezone("Asia/Seoul") | ds_nodash}}/bikeStationMaster.csv'},
+        filepath = 'bikeStationMaster/{{data_interval_end.in_timezone("Asia/Seoul") | ds_nodash}}/bikeStationMaster.csv',
         recursive = False,    # 해당 파일 경로 밑에 있는 다른 폴더, 파일까지 다 가져오는가
         poke_interval = 60,
         timeout = 60*60*24,  # 1dlf
