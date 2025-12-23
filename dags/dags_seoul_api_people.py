@@ -7,7 +7,7 @@ from airflow.sdk import DAG
 #from airflow import DAG
 
 with DAG(
-    dag_id='dags_seoul_api_seoul_people',
+    dag_id='dags_seoul_api_people',
     schedule='0 7 * * *',
     start_date=pendulum.datetime(2025,4,1, tz='Asia/Seoul'),
     catchup=False
