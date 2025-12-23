@@ -15,12 +15,22 @@ with DAG(
         custom_postgre_hook = CustomPostgresHook(postgres_conn_id=postgre_conn_id)
         custom_postgre_hook.bulk_load(table_name=tbl_nm, file_name=file_nm, delimiter=',', is_header=True, is_replace=True)  # 해당 테이블이 있으면 엎어쳐서 새로 올린다
 
-    insrt_postgre = PythonOperator(
-        task_id = 'insrt_postgre',
+    insrt_postgre_bike = PythonOperator(
+        task_id = 'insrt_postgre_bike',
         python_callable=insrt_postgre,
         op_kwargs={ 'postgre_conn_id': 'conn-db-postgrs-custom'
-                  , 'tbl_nm' : 'tb_bulk2'
+                  , 'tbl_nm' : 'tb_bike_station_master'
                   , 'file_nm' : '/opt/airflow/files/bikeStationMaster/{{data_interval_end.in_timezone("Asia/Seoul") | ds_nodash}}/bikeStationMaster.csv'
+                  }
+
+    )
+
+    insrt_postgre_people = PythonOperator(
+        task_id = 'insrt_postgre_people',
+        python_callable=insrt_postgre,
+        op_kwargs={ 'postgre_conn_id': 'conn-db-postgrs-custom'
+                  , 'tbl_nm' : 'tb_seoul_people'
+                  , 'file_nm' : '/opt/airflow/files/SPOP_LOCAL_RESD_DONG/{{data_interval_end.in_timezone("Asia/Seoul") | ds_nodash}}/SPOP_LOCAL_RESD_DONG.csv'
                   }
 
     )

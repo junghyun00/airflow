@@ -17,6 +17,6 @@ with DAG(
         filepath = 'bikeStationMaster/{{data_interval_end.in_timezone("Asia/Seoul") | ds_nodash}}/bikeStationMaster.csv',
         recursive = False,    # 해당 파일 경로 밑에 있는 다른 폴더, 파일까지 다 가져오는가
         poke_interval = 60,
-        timeout = 60*60*24,  # 1dlf
+        timeout = 60*60*24,  # 1일
         mode = 'reschedule'
     )
