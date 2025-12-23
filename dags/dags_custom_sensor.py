@@ -14,7 +14,7 @@ with DAG(
         task_id='api_sensor',
         dataset_nm = 'TbCorona19CountStatus',
         base_dt_col = 'S_DT',
-        day_off = 0
+        day_off = 0,
         poke_interval=600,   #1분
         mode='reschedule'
     )
