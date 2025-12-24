@@ -8,7 +8,8 @@ with DAG(
     schedule='0 7 * * *',
     start_date=pendulum.datetime(2025, 12, 1, tz="Asia/Seoul"), 
     catchup=False,
-    default_args={'pool' : 'pool_small'}   # pool을 설정
+    default_args={'pool' : 'pool_small',
+    'weight_rule': 'downstream'}   # pool을 설정
 ) as dag:
 
     bash_task_1 = BashOperator(
@@ -47,7 +48,7 @@ with DAG(
 
     bash_task_7 = BashOperator(
         task_id='bash_task_7',
-        bash_command='sleep 10',
+        bash_command='sleep 30',
         priority_weight = 7
     )
 
@@ -62,6 +63,10 @@ with DAG(
         bash_command='sleep 30',
         priority_weight = 9
     )
+    
+    bash_task_9 >> bash_task_7 >> bash_task_1
+    bash_task_1 >> [bash_task_2, bash_task_3]
+    [bash_task_2, bash_task_3] >> bash_task_4
 
 
     '''
