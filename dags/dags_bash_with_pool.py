@@ -47,7 +47,7 @@ with DAG(
 
     bash_task_7 = BashOperator(
         task_id='bash_task_7',
-        bash_command='sleep 30',
+        bash_command='sleep 10',
         priority_weight = 7
     )
 
