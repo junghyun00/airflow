@@ -5,7 +5,7 @@ from airflow.providers.standard.operators.bash import BashOperator
 
 with DAG(
     dag_id="dags_bash_with_pool",
-    schedule='*/1 * * * *',
+    schedule='0 7 * * *',
     start_date=pendulum.datetime(2025, 12, 1, tz="Asia/Seoul"), 
     catchup=False,
     default_args={'pool' : 'pool_small'}   # pool을 설정
