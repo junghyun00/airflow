@@ -63,10 +63,6 @@ with DAG(
         bash_command='sleep 30',
         priority_weight = 9
     )
-    
-    bash_task_9 >> bash_task_7 >> bash_task_1
-    bash_task_1 >> [bash_task_2, bash_task_3]
-    [bash_task_2, bash_task_3] >> bash_task_4
 
 
     '''
