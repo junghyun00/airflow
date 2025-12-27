@@ -49,7 +49,8 @@ with DAG(
             table = 'tb_bike_station_master',
             rows = rows,
             target_fields = ["rntls_id", "addr1", "addr2" , "lat", "lot" ],
-            commit_every = 1000
+            commit_every = 100,
+            replace = True
         )
 
     mig_task = PythonOperator(
