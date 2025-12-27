@@ -45,13 +45,13 @@ with DAG(
             """
         )
 
+        tag_hook.run("TRUNCATE TABLE tb_bike_station_master")
+
         tag_hook.insert_rows(
-            table = 'tb_bike_station_master',
-            schema='public',
+            table = 'tb_bike_station_master'
             rows = rows,
             target_fields = ["rntls_id", "addr1", "addr2" , "lat", "lot" ],
-            commit_every = 100,
-            replace = True
+            commit_every = 100
         )
 
     mig_task = PythonOperator(
