@@ -41,10 +41,10 @@ with DAG(
         data_interval_end = kwargs.get('data_interval_end')
         v_mig_date = data_interval_end.in_timezone("Asia/Seoul").strftime("%Y%m%d")
         
-        tag_hook.run( "delete from tb_bike_station_master where mig_date = '{v_mig_date}'")
+        tag_hook.run( f"delete from tb_bike_station_master where mig_date = '{v_mig_date}'")
 
         rows = sur_hook.get_records(
-        """
+        f"""
         select a.* , '{v_mig_date}' AS mig_date  from tb_bike_station_master a
         """
         )
