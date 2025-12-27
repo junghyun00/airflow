@@ -38,11 +38,17 @@ with DAG(
 
         sur_hook = PostgresHook(sur_conn_id)
         tag_hook = PostgresHook(tag_conn_id)
+        data_interval_end = kwargs.get('data_interval_end')
+        v_mig_date = data_interval_end.in_timezone("Asia/Seoul").strftime("%Y%m%d")
         
+        tag_hook.run( "delete from tb_bike_station_master where mig_date = %s"
+                    , parameters=(v_mig_date))
+
         rows = sur_hook.get_records(
-            """
-            select a.* , to_char(now(),  'YYYYMMDD') AS mig_date  from tb_bike_station_master a
-            """
+        """
+        select a.* , %s AS mig_date  from tb_bike_station_master a
+        """
+        , parameters=(v_mig_date))
         )
 
         # tag_hook.run("TRUNCATE TABLE tb_bike_station_master")
