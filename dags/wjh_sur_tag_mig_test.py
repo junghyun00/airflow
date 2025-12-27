@@ -35,6 +35,7 @@ with DAG(
 
     def mig_tb_bike_station_master(sur_conn_id, tag_conn_id, **kwargs):
         from airflow.providers.postgres.hooks.postgres import PostgresHook
+        from dateutil.relativedelta import relativedelta
 
         sur_hook = PostgresHook(sur_conn_id)
         tag_hook = PostgresHook(tag_conn_id)
