@@ -79,7 +79,8 @@ with DAG(
         tag_hook.insert_rows(
             table = 'tb_seoul_people',
             rows = rows,
-            commit_every = 1000
+            commit_every = 1000,
+            executemany=True
         )
 
     mig_tb_seoul_people = PythonOperator(
