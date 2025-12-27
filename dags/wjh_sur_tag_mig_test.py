@@ -47,6 +47,7 @@ with DAG(
 
         tag_hook.insert_rows(
             table = 'tb_bike_station_master',
+            schema='public',
             rows = rows,
             target_fields = ["rntls_id", "addr1", "addr2" , "lat", "lot" ],
             commit_every = 100,
