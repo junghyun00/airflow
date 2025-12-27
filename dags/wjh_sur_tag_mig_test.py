@@ -33,7 +33,7 @@ with DAG(
     #     connect_timeout=5
     # )
 
-    def mig_data(sur_conn_id, tag_conn_id, **kwargs):
+    def mig_tb_bike_station_master(sur_conn_id, tag_conn_id, **kwargs):
         from airflow.providers.postgres.hooks.postgres import PostgresHook
 
         sur_hook = PostgresHook(sur_conn_id)
@@ -51,11 +51,42 @@ with DAG(
             table = 'tb_bike_station_master',
             rows = rows,
             target_fields = ["rntls_id", "addr1", "addr2" , "lat", "lot" ],
-            commit_every = 1
+            commit_every = 1000
         )
 
-    mig_task = PythonOperator(
-        task_id = 'mig_task',
-        python_callable=mig_data,
+    tb_bike_station_master = PythonOperator(
+        task_id = 'tb_bike_station_master',
+        python_callable=mig_tb_bike_station_master,
         op_kwargs={'sur_conn_id' : 'conn-db-postgrs-custom', 'tag_conn_id' : 'conn-target'}
     )
+
+
+
+    def mig_tb_seoul_people(sur_conn_id, tag_conn_id, **kwargs):
+        from airflow.providers.postgres.hooks.postgres import PostgresHook
+
+        sur_hook = PostgresHook(sur_conn_id)
+        tag_hook = PostgresHook(tag_conn_id)
+        
+        rows = sur_hook.get_records(
+            """
+            select * from tb_seoul_people
+            """
+        )
+
+        tag_hook.run("TRUNCATE TABLE tb_seoul_people")
+
+        tag_hook.insert_rows(
+            table = 'tb_seoul_people',
+            rows = rows,
+            commit_every = 1000
+        )
+
+    mig_tb_seoul_people = PythonOperator(
+        task_id = 'tb_seoul_people',
+        python_callable=mig_tb_seoul_people,
+        op_kwargs={'sur_conn_id' : 'conn-db-postgrs-custom', 'tag_conn_id' : 'conn-target'}
+    )
+
+
+    [tb_bike_station_master, mig_tb_seoul_people]
