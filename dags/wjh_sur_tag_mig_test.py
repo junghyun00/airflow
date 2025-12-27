@@ -46,9 +46,10 @@ with DAG(
         )
 
         tag_hook.insert_rows(
-            table_name = 'tb_bike_station_master',
+            table = 'tb_bike_station_master',
             rows = rows,
-            target_fields = ["rntls_id", "addr1", "addr2" , "lat", "lot" ]
+            target_fields = ["rntls_id", "addr1", "addr2" , "lat", "lot" ],
+            commit_every = 1000
         )
 
     mig_task = PythonOperator(
