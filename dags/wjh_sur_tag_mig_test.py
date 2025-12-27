@@ -80,7 +80,8 @@ with DAG(
             table = 'tb_seoul_people',
             rows = rows,
             commit_every = 1000,
-            executemany=True
+            executemany=True,
+            fast_executemany=True 
         )
 
     mig_tb_seoul_people = PythonOperator(
