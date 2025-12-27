@@ -70,7 +70,8 @@ with DAG(
         
         rows = sur_hook.get_records(
             """
-            select * from tb_seoul_people
+            select a.* , to_char(now(),  'YYYYMMDD') AS mig_date
+            from tb_seoul_people a 
             """
         )
 
