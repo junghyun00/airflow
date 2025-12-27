@@ -48,7 +48,7 @@ with DAG(
         """
         select a.* , %s AS mig_date  from tb_bike_station_master a
         """
-        , parameters=(v_mig_date))
+        , parameters=(v_mig_date)
         )
 
         # tag_hook.run("TRUNCATE TABLE tb_bike_station_master")
