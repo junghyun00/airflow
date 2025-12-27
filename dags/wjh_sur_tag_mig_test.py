@@ -41,7 +41,7 @@ with DAG(
         
         rows = sur_hook.get_records(
             """
-            select * from tb_bike_station_master
+            select rntls_id, addr1, addr2 , lat, lot  from tb_bike_station_master
             """
         )
 
