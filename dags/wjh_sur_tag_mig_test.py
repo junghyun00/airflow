@@ -40,7 +40,7 @@ with DAG(
         sur_hook = PostgresHook(sur_conn_id)
         tag_hook = PostgresHook(tag_conn_id)
         data_interval_end = kwargs.get('data_interval_end')
-        v_mig_date = data_interval_end.in_timezone("Asia/Seoul").strftime("%Y%m%d") + relativedelta(days = 1)
+        v_mig_date = (data_interval_end.in_timezone("Asia/Seoul") + relativedelta(days = 1)).strftime("%Y%m%d")
         
         tag_hook.run( f"delete from tb_bike_station_master where mig_date = '{v_mig_date}'")
 
