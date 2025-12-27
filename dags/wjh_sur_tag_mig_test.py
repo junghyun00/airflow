@@ -2,6 +2,7 @@ from airflow.sdk import DAG, task
 import datetime
 import pendulum
 from airflow.providers.standard.operators.python import PythonOperator  # 함수를 실행시키는 오퍼레이터
+import pyodbc
 
 
 with DAG(
@@ -66,34 +67,34 @@ with DAG(
 
 
 
-    # def mig_tb_seoul_people(sur_conn_id, tag_conn_id, **kwargs):
-    #     from airflow.providers.postgres.hooks.postgres import PostgresHook
+    def mig_tb_seoul_people(sur_conn_id, tag_conn_id, **kwargs):
+        from airflow.providers.postgres.hooks.postgres import PostgresHook
 
-    #     sur_hook = PostgresHook(sur_conn_id)
-    #     tag_hook = PostgresHook(tag_conn_id)
+        sur_hook = PostgresHook(sur_conn_id)
+        tag_hook = PostgresHook(tag_conn_id)
         
-    #     rows = sur_hook.get_records(
-    #         """
-    #         select a.* , to_char(now(),  'YYYYMMDD') AS mig_date
-    #         from tb_seoul_people a 
-    #         """
-    #     )
+        rows = sur_hook.get_records(
+            """
+            select a.* , to_char(now(),  'YYYYMMDD') AS mig_date
+            from tb_seoul_people a 
+            """
+        )
 
-    #     tag_hook.run("TRUNCATE TABLE tb_seoul_people")
+        tag_hook.run("TRUNCATE TABLE tb_seoul_people")
 
-    #     tag_hook.insert_rows(
-    #         table = 'tb_seoul_people',
-    #         rows = rows,
-    #         commit_every = 1000,
-    #         executemany=True,
-    #         fast_executemany=True 
-    #     )
+        tag_hook.insert_rows(
+            table = 'tb_seoul_people',
+            rows = rows,
+            commit_every = 1000,
+            executemany=True,
+            fast_executemany=True 
+        )
 
-    # mig_tb_seoul_people = PythonOperator(
-    #     task_id = 'tb_seoul_people',
-    #     python_callable=mig_tb_seoul_people,
-    #     op_kwargs={'sur_conn_id' : 'conn-db-postgrs-custom', 'tag_conn_id' : 'conn-target'}
-    # )
+    mig_tb_seoul_people = PythonOperator(
+        task_id = 'tb_seoul_people',
+        python_callable=mig_tb_seoul_people,
+        op_kwargs={'sur_conn_id' : 'conn-db-postgrs-custom', 'tag_conn_id' : 'conn-target'}
+    )
 
 
     tb_bike_station_master
